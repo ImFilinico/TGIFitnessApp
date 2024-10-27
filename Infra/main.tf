@@ -53,10 +53,15 @@ resource "aws_s3_bucket_policy" "tgifitness_bucket_policy" {
       {
         Sid       = "AllowCloudFrontServicePrincipal"
         Effect    = "Allow"
+        Principal = {
+            Service = "cloudfront.amazonaws.com"
+        }
         Action    = "s3:GetObject"
         Resource  = "${aws_s3_bucket.tgifitness-bucket.arn}/*"
-        Principal = {
-            AWS = aws_cloudfront_origin_access_identity.oai.iam_arn
+        Condition = {
+            StringEquals = {
+                "AWS:Referer" = "${aws_cloudfront_origin_access_identity.oai.cloudfront_access_identity_path}"
+            }
         }
       }
     ]

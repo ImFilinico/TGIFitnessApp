@@ -38,7 +38,7 @@ jobs:
 
       - name: Sync files to S3
         run: |
-          aws s3 sync frontend./build s3://tgifitness-bucket --delete
+          aws s3 sync frontend/build s3://tgifitness-bucket --delete
         env:
           NODE_ENV: production
 

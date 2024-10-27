@@ -60,7 +60,7 @@ resource "aws_s3_bucket_policy" "tgifitness_bucket_policy" {
         Resource  = "${aws_s3_bucket.tgifitness-bucket.arn}/*"
         Condition = {
             StringEquals = {
-                "AWS:Referer" = "${aws_cloudfront_origin_access_identity.oai.cloudfront_access_identity_path}"
+                "AWS:SourceArn" = "arn:aws:cloudfront::058264176770:distribution/E1VZN2G43PJZ19"
             }
         }
       }

@@ -48,7 +48,8 @@ resource "aws_s3_bucket_policy" "tgifitness_bucket_policy" {
     bucket = aws_s3_bucket.tgifitness-bucket.id
 
   policy = jsonencode({
-    Version = "2012-10-17"
+    Version = "2008-10-17"
+    Id = "CloudFrontTGIPolicy"
     Statement = [
       {
         Sid       = "AllowCloudFrontServicePrincipal"
@@ -73,6 +74,14 @@ locals {
 }
 
 #####################################################################################
+
+resource "aws_cloudfront_origin_access_control" "oac" {
+  name                              = "s3-access-control"
+  description                       = "OAC for accessing S3 bucket"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
+}
 
 resource "aws_cloudfront_distribution" "tgifitness_distribution" {
     origin {

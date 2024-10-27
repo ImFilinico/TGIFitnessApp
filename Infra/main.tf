@@ -40,18 +40,24 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "example" {
   }
 }
 
+resource "aws_cloudfront_origin_access_identity" "oai" {
+    comment = "Origin Access Identity for TGIFitness S3 bucket"
+}
+
 resource "aws_s3_bucket_policy" "tgifitness_bucket_policy" {
-  bucket = aws_s3_bucket.tgifitness-bucket.id
+    bucket = aws_s3_bucket.tgifitness-bucket.id
 
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
-        Sid       = "PublicReadGetObject"
+        Sid       = "AllowCloudFrontServicePrincipal"
         Effect    = "Allow"
-        Principal = "*"
         Action    = "s3:GetObject"
         Resource  = "${aws_s3_bucket.tgifitness-bucket.arn}/*"
+        Principal = {
+            AWS = aws_cloudfront_origin_access_identity.oai.iam_arn
+        }
       }
     ]
   })

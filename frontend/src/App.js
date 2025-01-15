@@ -1,4 +1,4 @@
-import Calculator from './pages/Calculator/calculator'
+import Home from './pages/Home/home'
 
 function App() {
   return (

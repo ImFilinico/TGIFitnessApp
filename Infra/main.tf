@@ -132,3 +132,6 @@ resource "aws_cloudfront_distribution" "tgifitness_distribution" {
     }
 
 }
+
+#####################################################################################
+

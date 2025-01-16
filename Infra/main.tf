@@ -135,3 +135,6 @@ resource "aws_cloudfront_distribution" "tgifitness_distribution" {
 
 #####################################################################################
 
+resource "aws_cognito_user_pool" "trainer_pool"{
+  name = "trainer"
+}

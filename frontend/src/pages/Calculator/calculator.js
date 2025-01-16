@@ -4,7 +4,7 @@ const Calculator = () => {
   return (
     <div>
       <h1>Fitness Calculator</h1>
-      <p>Use our calculator to track your fitness metrics.</p>
+      <p>You didn't go to the gym to do math! Let us crank the numbers for you!</p>
     </div>
   );
 };

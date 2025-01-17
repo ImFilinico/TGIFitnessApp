@@ -47,23 +47,18 @@ resource "aws_cloudfront_origin_access_identity" "oai" {
 resource "aws_s3_bucket_policy" "tgifitness_bucket_policy" {
     bucket = aws_s3_bucket.tgifitness-bucket.id
 
-  policy = jsonencode({
-    Version = "2008-10-17"
-    Id = "CloudFrontTGIPolicy"
+policy = jsonencode({
+    Version = "2012-10-17"
+    Id      = "CloudFrontTGIPolicy"
     Statement = [
       {
-        Sid       = "AllowCloudFrontServicePrincipal"
+        Sid       = "AllowCloudFrontOAI"
         Effect    = "Allow"
         Principal = {
-            Service = "cloudfront.amazonaws.com"
+          AWS = aws_cloudfront_origin_access_identity.oai.iam_arn
         }
         Action    = "s3:GetObject"
         Resource  = "${aws_s3_bucket.tgifitness-bucket.arn}/*"
-        Condition = {
-            StringEquals = {
-                "AWS:SourceArn" = "arn:aws:cloudfront::058264176770:distribution/E1VZN2G43PJZ19"
-            }
-        }
       }
     ]
   })

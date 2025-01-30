@@ -12,7 +12,7 @@ const Header = () => {
         <Link to="/calculator">Calculate</Link>
       </nav>
 
- 
+      <nav>
         <Link to="/log">log tehee</Link>
     </nav>
     </header>
